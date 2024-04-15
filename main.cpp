@@ -1,10 +1,9 @@
-//
-// Created by graci on 4/15/2024.
-//
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
+
+//group 50: Julio Arboleda, Carmen Cruz Armana, Graciela Strand
 
 int main(){
     cout << "Welcome to CITY SEEKER!\nHelp us help you chose your dream city!"<< endl;
@@ -16,6 +15,4 @@ int main(){
     vector<int> populationOptions;
 
     //tryna figure this out
-
-    //I am Your Father
 }
