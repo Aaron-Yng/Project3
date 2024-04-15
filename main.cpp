@@ -8,5 +8,5 @@ using namespace std;
 
 int main(){
     cout << "Welcome to CITY HUNT!"
-
+    //tryna figure this out
 }
