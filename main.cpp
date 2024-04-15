@@ -13,6 +13,7 @@ int main(){
     cout << "Hi there " << name << "!" << endl;
     cout << "Enter your preferences for different categories and I will calculate the ideal city for you!" << endl;
     vector<int> populationOptions;
+    //
 
     //tryna figure this out
     //c'mon we got this
