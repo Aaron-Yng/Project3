@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <ifstream>
-
+using namespace std;
 struct city
 {
     string name;
