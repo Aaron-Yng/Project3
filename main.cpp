@@ -37,6 +37,12 @@ void menuBasic(){
         menuBasic();
     }
     else if (option == "2"){
+        cout << "1 - Rank by Population" << endl;
+        cout << "2 - Rank by Density" << endl;
+        cout << "3 - Rank by Age" << endl;
+        cout << "4 - Rank by Household Size" << endl;
+        cin >> option;
+        //rank(option)
 
     }
     else if (option == "3"){
@@ -48,6 +54,26 @@ void menuBasic(){
     }
 }
 
+void rank(string option){
+    int counter = 1;
+    if (option == "1"){
+        cout << "Population Ranking (greatest to least)" << endl;
+        //for population in all cities, cout << counter << city name << population, counter ++
+    }
+    else if (option == "2"){
+        cout << "Population Density Ranking (greatest to least)" << endl;
+    }
+    else if (option == "3"){
+        cout << "Median Age Ranking (greatest to least)" << endl;
+    }
+    else if (option == "4"){
+        cout << "Average Household Size Ranking (greatest to least)" << endl;
+    }
+    else{
+        cout << "invalid selection :(" << endl;
+        menuBasic();
+    }
+}
 
 int main() {
     cout << "Welcome to CITY SEARCHER!\nThis program will generate numerical demographical information for any USA city"<< endl;
