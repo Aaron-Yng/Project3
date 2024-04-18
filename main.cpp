@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "hashTable.h"
+#include "parsingCSV.h"
 #include <vector>
 using namespace std;
 
@@ -76,6 +78,7 @@ void rank(string option){
 }
 
 int main() {
+    hashMapLinear map(10);
     cout << "Welcome to CITY SEARCHER!\nThis program will generate numerical demographical information for any USA city"<< endl;
     cout << "What is your name?" << endl;
     string userName;
