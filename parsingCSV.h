@@ -9,8 +9,7 @@ using namespace std;
 
 vector<string> parseCSV(hashMapLinear map){
     fstream cityInfo;
-    string line;
-    string attribute;
+    string line, attribute;
     vector<string> attributes;
     cityInfo.open("uscities.csv",ios::in);
     while(!cityInfo.eof()){

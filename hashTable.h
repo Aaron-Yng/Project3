@@ -103,8 +103,9 @@ public:
         return map[index];
 
     }
-
-
 };
 
+class hashMapSeparateChaining{
+
+};
 
