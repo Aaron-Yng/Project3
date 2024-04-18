@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-//group 50: Julio Arboleda, Carmen Cruz Armana, Graciela Strand
+//group 50: Julio Arboleda, Carmen Cruz Arana, Graciela Strand
 
 
 vector<string> citySearcher(string cityName){

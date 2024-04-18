@@ -21,8 +21,9 @@ private:
 public:
 
     hashMapLinear(int cap){
+        //creates empty 2d array with cap number of rows
         for(int i = 0; i < cap;i++){
-            map.push_back({"","","","","",""});
+            map.push_back({});
         }
         capacity = cap;
         size = 0;
@@ -33,51 +34,76 @@ public:
         long value = 0;
         int i = 0;
         for(auto s : cityName){
+            //ignores space in string
             if(s == ' ') {
                 i++;
                 continue;
             }
             s = tolower(s);
+            //gets value from alphabet map corresponding to letter character s
             value += alphabet[(char) s] * (30^i);
             i++;
         }
         return value % capacity;
     }
-    void insert(vector<string> cityAttributes){
+    void insertHelper(vector<string> cityAttributes, vector<vector<string>> Map){
+        //checks if the current capacity exceeds max load factor
+        if(size > maxLoadFactor*(double)capacity){
+            reHash();
+        }
+        //hashes based on city name which is in cityAttributes[0]
         int index = hashFunc(cityAttributes[0]);
-        if(map[index].empty()){
-            map[index] = cityAttributes;
+        if(Map[index].empty()){
+            Map[index] = cityAttributes;
             size++;
         }
         else{
-            int currSize = size;
-            while(size == currSize){
+            //increases array until empty spot is found
+            while(!Map[index].empty()){
                 index += 1;
-                if(index > capacity){
-
-                }
-                if(map[index].empty()){
-                    size++;
+                if(index >= capacity){
+                    index = 0;
                 }
             }
+            Map[index] = cityAttributes;
+            size++;
 
         }
     }
 
-    void resize(){
-        for(int i = 0; i < 100; i++){
-            map.push_back({"","","","","",""});
-        }
-        capacity += 100;
+    void insert(vector<string>& attributes){
+        insertHelper(attributes,map);
     }
-    void rehash(){
-        resize();
-        for(auto vec : map){
-            int index = hashFunc(vec[0]);
 
+    void reHash(){
+        vector<vector<string>> newMap;
+        for(int i = 0; i < capacity * 3; i++){
+            newMap.push_back({});
         }
+        capacity *= 5;
+        for(const auto& vec : map){
+            insertHelper(vec,newMap);
+        }
+        map = newMap;
+    }
+
+    vector<string> find(const string& city){
+        int index = hashFunc(city);
+
+        while(!map[index].empty() and map[index][0] != city){
+            index++;
+            if(index >= capacity){
+                index = 0;
+            }
+        }
+        if(map[index].empty()){
+            cout << "Could not find city" << endl;
+            return {};
+        }
+        return map[index];
 
     }
+
 
 };
 
