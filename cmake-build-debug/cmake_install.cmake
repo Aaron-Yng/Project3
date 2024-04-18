@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Carmen Cruz Arana/CLionProjects/P3group-50
+# Install script for directory: C:/Users/julio/Desktop/COP3530/P3-group-50
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Carmen Cruz Arana/CLionProjects/P3group-50/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/julio/Desktop/COP3530/P3-group-50/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

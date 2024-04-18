@@ -105,7 +105,79 @@ public:
     }
 };
 
-class hashMapSeparateChaining{
+class hashMapChaining{
+private:
+    vector<vector<string>> map;
+    int capacity;
+    int size;
+    double maxLoadFactor;
+public:
+    hashMapChaining(int cap){
+        //creates empty 2d array with cap number of rows
+        for(int i = 0; i < cap;i++){
+            map.push_back({});
+        }
+        capacity = cap;
+        size = 0;
+        maxLoadFactor = 0.75;
+    }
 
+    long hashFunc(string cityName) {
+        long value = 0;
+        int i = 0;
+        for (auto s: cityName) {
+            //ignores space in string
+            if (s == ' ') {
+                i++;
+                continue;
+            }
+            s = tolower(s);
+            //gets value from alphabet map corresponding to letter character s
+            value += alphabet[(char) s] * (30 ^ i);
+            i++;
+        }
+        return value % capacity;
+    }
+
+    void reHash(){
+        vector<vector<string>> newMap;
+        for(int i = 0; i < capacity * 3; i++){
+            newMap.push_back({});
+        }
+        capacity *= 5;
+        for(const auto& vec : map){
+            insertHelper(vec,newMap);
+        }
+        map = newMap;
+    }
+
+    void insert(vector<string>& attributes){
+        insertHelper(attributes,map);
+    }
+
+    void insertHelper(vector<string> cityAttributes, vector<vector<string>> Map){
+        //checks if the current capacity exceeds max load factor
+        if(size > maxLoadFactor*(double)capacity){
+            reHash();
+        }
+        //hashes based on city name which is in cityAttributes[0]
+        int index = hashFunc(cityAttributes[0]);
+        if(Map[index].empty()){
+            Map[index] = cityAttributes;
+            size++;
+        }
+        else{
+            //increases array until empty spot is found
+            while(!Map[index].empty()){
+                index += 1;
+                if(index >= capacity){
+                    index = 0;
+                }
+            }
+            Map[index] = cityAttributes;
+            size++;
+
+        }
+    }
 };
 
