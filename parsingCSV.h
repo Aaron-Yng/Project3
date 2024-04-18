@@ -7,7 +7,7 @@
 #include <fstream>
 using namespace std;
 
-vector<string> parseCSV(hashMapLinear map){
+void parseCSV(hashMapLinear map){
     fstream cityInfo;
     string line;
     string attribute;
@@ -19,7 +19,7 @@ vector<string> parseCSV(hashMapLinear map){
         while(getline(s,attribute,',')){
             attributes.push_back(attribute);
         }
-        map.insert(attributes);
+        map.insert(attributes); //
     }
 }
 
