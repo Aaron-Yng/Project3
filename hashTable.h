@@ -1,11 +1,12 @@
 #include <vector>
 #include <string>
+#include <utility>
 #include <iostream>
 #include <map>
-#pragma oncecarm
+#pragma once
 using namespace std;
 
-map<char,int> alphabet = {{'a',1},{'b',2},{'c',3},{'d', 4},{'e',5},{'f', 6},{'g',7},
+static map<char,int> alphabet = {{'a',1},{'b',2},{'c',3},{'d', 4},{'e',5},{'f', 6},{'g',7},
                           {'h',8},{'i', 9},{'j',10},{'k',11},{'l',12},{'m',13},{'n',14},
                           {'o',15},{'p',16},{'q',17},{'r',18},{'s',19},{'t',20},{'u',21},
                           {'v',22},{'w',23},{'x',24},{'y',25},{'z',26}};
@@ -108,77 +109,67 @@ public:
 
 class hashMapChaining{
 private:
-    vector<vector<string>> map;
-    int capacity;
-    int size;
+    /*
+        The int parameter in bucket represents the hash key
+        The vector<string> contains information about the cities
+        The pair<int, vector<string>> is the element or node with their assigned hash key and the data the element carries
+        vector<pair<int, vector<string>>> is responsible for the separate chaining effect in each bucket
+        vector<vector<pair<int, vector<string>>>> creates the buckets, therefore creating the space for hash table
+        The above is for memory
+    */
+    vector<vector<vector<string>>> buckets;
+    // Keeps track of number of buckets
+    int bucket_count;
+    // Keeps track of number of elements
+    int elements;
+    // Keeps track of LF; elements/bucket_count
     double maxLoadFactor;
-public:
-    hashMapChaining(int cap){
-        //creates empty 2d array with cap number of rows
-        for(int i = 0; i < cap;i++){
-            map.push_back({});
-        }
-        capacity = cap;
-        size = 0;
-        maxLoadFactor = 0.75;
-    }
 
-    long hashFunc(string cityName) {
-        long value = 0;
+public:
+    hashMapChaining(int numOfBuckets)
+    {
+        for(int i = 0; i < numOfBuckets; i++)
+        {
+            buckets.push_back({});
+        }
+        bucket_count = numOfBuckets;
+        elements = 0;
+        maxLoadFactor = 0.75;
+    };
+
+    long hash(string cityName)
+    {
+        long hashValue = 0;
         int i = 0;
-        for (auto s: cityName) {
-            //ignores space in string
-            if (s == ' ') {
+        for(auto& value : cityName)
+        {
+            if(value == ' ')
+            {
                 i++;
                 continue;
             }
-            s = tolower(s);
+            value = tolower(value);
             //gets value from alphabet map corresponding to letter character s
-            value += alphabet[(char) s] * (30 ^ i);
+            hashValue += alphabet[(char) value] * (30^i);
             i++;
         }
-        return value % capacity;
+        return hashValue % bucket_count;
+    };
+
+    void insert(vector<string>& attributes)
+    {
+        insertHelper(attributes, buckets);
+    };
+
+    void insertHelper(vector<string>& cityAttributes, vector<vector<vector<string>>> hashMap)
+    {
+        if(elements > maxLoadFactor*)
     }
 
-    void reHash(){
-        vector<vector<string>> newMap;
-        for(int i = 0; i < capacity * 3; i++){
-            newMap.push_back({});
-        }
-        capacity *= 5;
-        for(const auto& vec : map){
-            insertHelper(vec,newMap);
-        }
-        map = newMap;
-    }
+    void rehash()
 
-    void insert(vector<string>& attributes){
-        insertHelper(attributes,map);
-    }
+    vector<string> find()
 
-    void insertHelper(vector<string> cityAttributes, vector<vector<string>> Map){
-        //checks if the current capacity exceeds max load factor
-        if(size > maxLoadFactor*(double)capacity){
-            reHash();
-        }
-        //hashes based on city name which is in cityAttributes[0]
-        int index = hashFunc(cityAttributes[0]);
-        if(Map[index].empty()){
-            Map[index] = cityAttributes;
-            size++;
-        }
-        else{
-            //increases array until empty spot is found
-            while(!Map[index].empty()){
-                index += 1;
-                if(index >= capacity){
-                    index = 0;
-                }
-            }
-            Map[index] = cityAttributes;
-            size++;
 
-        }
-    }
 };
 
