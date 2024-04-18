@@ -21,7 +21,7 @@ private:
 public:
 
     hashMapLinear(int cap){
-        for(int i = 0; i < 10;i++){
+        for(int i = 0; i < cap;i++){
             map.push_back({"","","","","",""});
         }
         capacity = cap;
@@ -29,7 +29,7 @@ public:
         maxLoadFactor = 0.75;
     }
 
-    long hash1(string cityName){
+    long hashFunc(string cityName){
         long value = 0;
         int i = 0;
         for(auto s : cityName){
@@ -41,9 +41,43 @@ public:
             value += alphabet[(char) s] * (30^i);
             i++;
         }
-        return value;
+        return value % capacity;
     }
-    void insert();
+    void insert(vector<string> cityAttributes){
+        int index = hashFunc(cityAttributes[0]);
+        if(map[index].empty()){
+            map[index] = cityAttributes;
+            size++;
+        }
+        else{
+            int currSize = size;
+            while(size == currSize){
+                index += 1;
+                if(index > capacity){
+
+                }
+                if(map[index].empty()){
+                    size++;
+                }
+            }
+
+        }
+    }
+
+    void resize(){
+        for(int i = 0; i < 100; i++){
+            map.push_back({"","","","","",""});
+        }
+        capacity += 100;
+    }
+    void rehash(){
+        resize();
+        for(auto vec : map){
+            int index = hashFunc(vec[0]);
+
+        }
+
+    }
 
 };
 
