@@ -50,12 +50,13 @@ public:
     void insertHelper(vector<string> cityAttributes, vector<vector<string>>& Map){
         //checks if the current capacity exceeds max load factor
         cout << "hi" << endl;
+        if(cityAttributes.empty())
+            return;
         if(size > maxLoadFactor*(double)capacity){
             reHash();
         }
         //hashes based on city name which is in cityAttributes[0]
-        if(cityAttributes.empty())
-            return;
+
         int index = hashFunc(cityAttributes[0]);
         if(Map[index].empty()){
             Map[index] = cityAttributes;

@@ -7,14 +7,14 @@
 #include <fstream>
 using namespace std;
 
-void parseCSV(hashMapLinear map){
+void parseCSV(hashMapLinear& map){
     fstream cityInfo;
     string line, attribute;
-    vector<string> attributes;
     cityInfo.open("uscities.csv",ios::in);
     while(!cityInfo.eof()){
         getline(cityInfo,line);
         stringstream s(line);
+        vector<string> attributes;
         while(getline(s,attribute,',')){
             attributes.push_back(attribute);
         }
