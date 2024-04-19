@@ -15,7 +15,7 @@ static map<char,int> alphabet = {{'a',1},{'b',2},{'c',3},{'d', 4},{'e',5},{'f', 
 class hashMapLinear{
 private:
 
-    vector<vector<string>> map;
+    vector<vector<string>> map = {};
     int capacity;
     int size;
     double maxLoadFactor;
@@ -46,14 +46,20 @@ public:
             value += alphabet[(char) s] * (30^i);
             i++;
         }
+        if(cityName == "New York")
+            cout << value % capacity << endl;
         return value % capacity;
     }
-    void insertHelper(vector<string> cityAttributes, vector<vector<string>> Map){
+    void insertHelper(vector<string> cityAttributes, vector<vector<string>>& Map){
         //checks if the current capacity exceeds max load factor
+        //cout << "hi" << endl;
+        if(cityAttributes.empty())
+            return;
         if(size > maxLoadFactor*(double)capacity){
             reHash();
         }
         //hashes based on city name which is in cityAttributes[0]
+
         int index = hashFunc(cityAttributes[0]);
         if(Map[index].empty()){
             Map[index] = cityAttributes;
@@ -82,7 +88,7 @@ public:
         for(int i = 0; i < capacity * 3; i++){
             newMap.push_back({});
         }
-        capacity *= 5;
+        capacity *= 3;
         for(const auto& vec : map){
             insertHelper(vec,newMap);
         }
