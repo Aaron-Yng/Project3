@@ -14,8 +14,9 @@ vector<string> citySearcher(string cityName, hashMapLinear& myMap){
     //RETRIEVAL
     vector<string> data;
     data = myMap.find(cityName);
-    if(data.empty())
-        return {};
+//return if data is empty
+//    if(data.empty())
+//        return {};
     if (!data.empty() ){
         cout << endl<< cityName << endl; //data[0]
         cout << "State: " << data[1] << endl;
@@ -106,7 +107,9 @@ int main() {
     cout << "Hi there " << userName << "!" << endl;
     cout << "Enter the name of a city: " << endl;
     string cityName;
-    cin >> cityName;
+    //uses first word of cityName
+    getline(cin,cityName);
+    cout << cityName << endl;
     citySearcher(cityName, LinearMap);
     cout << "Enter the name of another city: " << endl;
     cin >> cityName;

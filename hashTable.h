@@ -45,11 +45,13 @@ public:
             value += alphabet[(char) s] * (30^i);
             i++;
         }
+        if(cityName == "New York")
+            cout << value % capacity << endl;
         return value % capacity;
     }
     void insertHelper(vector<string> cityAttributes, vector<vector<string>>& Map){
         //checks if the current capacity exceeds max load factor
-        cout << "hi" << endl;
+        //cout << "hi" << endl;
         if(cityAttributes.empty())
             return;
         if(size > maxLoadFactor*(double)capacity){
