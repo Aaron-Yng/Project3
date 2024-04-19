@@ -15,15 +15,17 @@ vector<string> citySearcher(string cityName, hashMapLinear& myMap, priority_queu
     //RETRIEVAL
     vector<string> data;
     data = myMap.find(cityName);
-    if (!data.empty() ){
-        cout << endl<< cityName << endl; //data[0]
-        cout << "State: " << data[1] << endl;
-        cout << "Population: " << data [2] << endl;
-        cout << "Population Density: " << "data[3]" << endl;
-        cout << "Average Household Size: " << data[4] << endl;
-        cout << "Median Age: " << data[5] <<  endl;
-
+    if (data.empty() ){
+        return {};
     }
+    cout << endl<< cityName << endl; //data[0]
+    cout << "State: " << data[1] << endl;
+    cout << "Population: " << data [2] << endl;
+    cout << "Population Density: " << "data[3]" << endl;
+    cout << "Average Household Size: " << data[4] << endl;
+    cout << "Median Age: " << data[5] <<  endl;
+
+
     //pushes all the new data in a <value, cityname> pair onto each of the 4 heaps
     pair<int, string> dataPairs;
     dataPairs.first = stoi(data[2]);
@@ -102,7 +104,7 @@ void menuBasic(hashMapLinear& myMap, priority_queue<pair<int, string>> maxPop, p
     cin >> option;
     if (option == "1") {
         cout << "Enter the name of another city: " << endl;
-        cin >> cityName;
+        getline(cin,cityName);
         citySearcher(cityName, myMap, maxPop, maxDen, maxSize, maxAge);
         menuBasic(myMap, maxPop, maxDen, maxSize, maxAge);
     }
@@ -111,7 +113,7 @@ void menuBasic(hashMapLinear& myMap, priority_queue<pair<int, string>> maxPop, p
         cout << "2 - Rank by Density" << endl;
         cout << "3 - Rank by Household Size" << endl;
         cout << "4 - Rank by Median Age" << endl;
-        cin >> option;
+        getline(cin,option);
         Rank(option, maxPop, maxDen, maxSize, maxAge);
 
     }
@@ -142,10 +144,10 @@ int main() {
     cout << "Hi there " << userName << "!" << endl;
     cout << "Enter the name of a city: " << endl;
     string cityName;
-    cin >> cityName;
+    getline(cin,cityName);
     citySearcher(cityName, LinearMap, maxPop, maxDen, maxSize, maxAge);
     cout << "Enter the name of another city: " << endl;
-    cin >> cityName;
+    getline(cin,cityName);
     citySearcher(cityName, LinearMap, maxPop, maxDen, maxSize, maxAge);
     menuBasic(LinearMap, maxPop, maxDen, maxSize, maxAge);
 
