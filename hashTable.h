@@ -163,13 +163,44 @@ public:
 
     void insertHelper(vector<string>& cityAttributes, vector<vector<vector<string>>> hashMap)
     {
-        if(elements > maxLoadFactor*)
+        if(elements > maxLoadFactor*(double)bucket_count)
+        {
+            rehash();
+        }
+        int hashValue = hash(cityAttributes[0]);
+
+        hashMap[hashValue].push_back(cityAttributes);
+        elements++;
     }
 
     void rehash()
+    {
+        bucket_count *= 3;
+        vector<vector<vector<string>>> newBuckets(bucket_count);
+        for(auto& bucket: buckets)
+        {
+            for(auto& city : bucket)
+            {
+                long hashValue = hash(city[0]);
+                newBuckets[hashValue].push_back(city);
+            }
+        }
+        buckets = newBuckets;
+    }
 
-    vector<string> find()
-
+    vector<string> find(string cityName)
+    {
+        long hashValue = hash(cityName);
+        for(auto& city : buckets[hashValue])
+        {
+            if(city[0] == cityName)
+            {
+                return city;
+            }
+        }
+        cout << "Could not find city!" << endl;
+        return {};
+    }
 
 };
 
