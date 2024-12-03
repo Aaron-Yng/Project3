@@ -250,3 +250,33 @@ void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
         }
     }
 }
+
+void FoodList::sortFoods()
+{
+    int nutrient = 0;
+    cout << R"(Select a nutrient to sort by:
+1. Calories
+2. Fat
+3. Carbohydrates
+4. Protein
+
+Selection (1-4): )";
+    cin >> nutrient;
+
+    cout << endl;
+
+    int sortAlg = 0;
+    cout << R"(
+Select a sorting algorithm:
+1. Heap Sort
+2. Merge Sort
+
+Selection (1-2): )";
+    cin >> sortAlg;
+
+
+    if(sortAlg == 1){
+        cout << "Sorting by protein using heap sort..." << endl;
+        heapSort(foodList, nutrient);
+    }
+}

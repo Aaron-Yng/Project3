@@ -35,6 +35,7 @@ private:
 public:
     FoodList();
     void heapSort(vector<Food>& list, int nutrient);
+    void sortFoods();
 
 };
 
