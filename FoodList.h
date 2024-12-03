@@ -24,12 +24,17 @@ private:
         Food(int _id, string& name);
         Food();
     };
+    void heapify_cals(vector<Food>& list, int size, int i);
+    void heapify_fat(vector<Food>& list, int size, int i);
+    void heapify_carbs(vector<Food>& list, int size, int i);
+    void heapify_protein(vector<Food>& list, int size, int i);
 
     vector<Food> foodList;
     unordered_map<int, Food> foodMap; //need to use map in order to retrieve values from food_nutrient.csv
 
 public:
     FoodList();
+    void heapSort(vector<Food>& list, int nutrient);
 
 };
 

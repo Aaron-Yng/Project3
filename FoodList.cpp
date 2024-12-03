@@ -121,3 +121,132 @@ Notes:
 */
 
 }
+
+void FoodList::heapify_cals(vector <FoodList::Food> &list, int size, int i) {
+    int largest = i;
+    int left_index = (2 * i) + 1;
+    int right_index = (2 * i) + 2;
+    // if left larger
+    if(left_index < size && list[left_index].cals > list[largest].cals) {
+        largest = left_index;
+    }
+    // if right larger
+    if(right_index < size && list[right_index].cals > list[largest].cals) {
+        largest = right_index;
+    }
+    // if not still root
+    if(largest != i) {
+        swap(list[i], list[largest]);
+        heapify_cals(list, size, largest);
+    }
+}
+
+void FoodList::heapify_carbs(vector <FoodList::Food> &list, int size, int i) {
+    int largest = i;
+    int left_index = (2 * i) + 1;
+    int right_index = (2 * i) + 2;
+    // if left larger
+    if(left_index < size && list[left_index].carbs > list[largest].carbs) {
+        largest = left_index;
+    }
+    // if right larger
+    if(right_index < size && list[right_index].carbs > list[largest].carbs) {
+        largest = right_index;
+    }
+    // if not still root
+    if(largest != i) {
+        swap(list[i], list[largest]);
+        heapify_carbs(list, size, largest);
+    }
+}
+
+void FoodList::heapify_fat(vector <FoodList::Food> &list, int size, int i) {
+    int largest = i;
+    int left_index = (2 * i) + 1;
+    int right_index = (2 * i) + 2;
+    // if left larger
+    if(left_index < size && list[left_index].fat > list[largest].fat) {
+        largest = left_index;
+    }
+    // if right larger
+    if(right_index < size && list[right_index].fat > list[largest].fat) {
+        largest = right_index;
+    }
+    // if not still root
+    if(largest != i) {
+        swap(list[i], list[largest]);
+        heapify_fat(list, size, largest);
+    }
+}
+
+void FoodList::heapify_protein(vector <FoodList::Food> &list, int size, int i) {
+    int largest = i;
+    int left_index = (2 * i) + 1;
+    int right_index = (2 * i) + 2;
+    // if left larger
+    if(left_index < size && list[left_index].protein > list[largest].protein) {
+        largest = left_index;
+    }
+    // if right larger
+    if(right_index < size && list[right_index].protein > list[largest].protein) {
+        largest = right_index;
+    }
+    // if not still root
+    if(largest != i) {
+        swap(list[i], list[largest]);
+        heapify_protein(list, size, largest);
+    }
+}
+
+void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
+    // nutrients: 1 = cals, 2 = fat, 3 = carbs, 4 = protein
+    int list_size = list.size();
+    // sort by cals
+    if(nutrient == 1) {
+        for(int i = (list_size / 2) - 1; i >= 0; i--) {
+            // building heap
+            heapify_cals(list, list_size, i);
+            // extract elements from heap
+            for(int i = list_size - 1; i > 0; i--) {
+                swap(list[0], list[i]);
+                heapify_cals(list, i, 0);
+            }
+        }
+    }
+    // sort by fat
+    if(nutrient == 2) {
+        for(int i = (list_size / 2) - 1; i >= 0; i--) {
+            // building heap
+            heapify_fat(list, list_size, i);
+            // extract elements from heap
+            for(int i = list_size - 1; i > 0; i--) {
+                swap(list[0], list[i]);
+                heapify_fat(list, i, 0);
+            }
+        }
+    }
+    // sort by carbs
+    if(nutrient == 3) {
+        for(int i = (list_size / 2) - 1; i >= 0; i--) {
+            // building heap
+            heapify_carbs(list, list_size, i);
+            // extract elements from heap
+            for(int i = list_size - 1; i > 0; i--) {
+                swap(list[0], list[i]);
+                heapify_carbs(list, i, 0);
+            }
+        }
+    }
+    // sort by protein
+    if(nutrient == 4) {
+        for(int i = (list_size / 2) - 1; i >= 0; i--) {
+            // building heap
+            heapify_protein(list, list_size, i);
+            // extract elements from heap
+            for(int i = list_size - 1; i > 0; i--) {
+                swap(list[0], list[i]);
+                heapify_protein(list, i, 0);
+            }
+        }
+    }
+}
