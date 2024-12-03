@@ -6,12 +6,12 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 class FoodList {
 private:
-
-public:
     struct Food {
         unsigned int fdc_id; //unique id of food item
         string name;
@@ -20,8 +20,13 @@ public:
         unsigned int carbs;
         unsigned int protein;
 
-        Food(int& _id, string& name);
+        Food(int _id, string& name);
     };
+
+    vector<Food> foodList;
+
+public:
+    FoodList();
 
 };
 

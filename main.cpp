@@ -6,10 +6,11 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "FoodList.h"
 
 using namespace std;
 
 int main() {
     //stuff here
-    cout << "first commit test" << endl;
+    FoodList foods;
 }
