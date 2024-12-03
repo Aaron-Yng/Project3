@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -21,9 +22,11 @@ private:
         unsigned int protein;
 
         Food(int _id, string& name);
+        Food();
     };
 
     vector<Food> foodList;
+    unordered_map<int, Food> foodMap; //need to use map in order to retrieve values from food_nutrient.csv
 
 public:
     FoodList();
