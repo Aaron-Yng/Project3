@@ -200,17 +200,17 @@ void FoodList::heapify_protein(vector <FoodList::Food> &list, int size, int i) {
 
 void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
     // nutrients: 1 = cals, 2 = fat, 3 = carbs, 4 = protein
-    int list_size = list.size();
+    int list_size = static_cast<int>(list.size());
     // sort by cals
     if(nutrient == 1) {
         for(int i = (list_size / 2) - 1; i >= 0; i--) {
             // building heap
             heapify_cals(list, list_size, i);
-            // extract elements from heap
-            for(int i = list_size - 1; i > 0; i--) {
-                swap(list[0], list[i]);
-                heapify_cals(list, i, 0);
-            }
+        }
+        // extract elements from heap
+        for(int i = list_size - 1; i > 0; i--) {
+            swap(list[0], list[i]);
+            heapify_cals(list, i, 0);
         }
     }
     // sort by fat
@@ -218,11 +218,11 @@ void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
         for(int i = (list_size / 2) - 1; i >= 0; i--) {
             // building heap
             heapify_fat(list, list_size, i);
-            // extract elements from heap
-            for(int i = list_size - 1; i > 0; i--) {
-                swap(list[0], list[i]);
-                heapify_fat(list, i, 0);
-            }
+        }
+        // extract elements from heap
+        for(int i = list_size - 1; i > 0; i--) {
+            swap(list[0], list[i]);
+            heapify_fat(list, i, 0);
         }
     }
     // sort by carbs
@@ -230,11 +230,11 @@ void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
         for(int i = (list_size / 2) - 1; i >= 0; i--) {
             // building heap
             heapify_carbs(list, list_size, i);
-            // extract elements from heap
-            for(int i = list_size - 1; i > 0; i--) {
-                swap(list[0], list[i]);
-                heapify_carbs(list, i, 0);
-            }
+        }
+        // extract elements from heap
+        for(int i = list_size - 1; i > 0; i--) {
+            swap(list[0], list[i]);
+            heapify_carbs(list, i, 0);
         }
     }
     // sort by protein
@@ -242,12 +242,98 @@ void FoodList::heapSort(vector <FoodList::Food>& list, int nutrient) {
         for(int i = (list_size / 2) - 1; i >= 0; i--) {
             // building heap
             heapify_protein(list, list_size, i);
-            // extract elements from heap
-            for(int i = list_size - 1; i > 0; i--) {
-                swap(list[0], list[i]);
-                heapify_protein(list, i, 0);
-            }
         }
+        // extract elements from heap
+        for(int i = list_size - 1; i > 0; i--) {
+            swap(list[0], list[i]);
+            heapify_protein(list, i, 0);
+        }
+    }
+}
+
+void FoodList::merge(vector<FoodList::Food>& sub_list, int left_index, int midpoint, int right_index, int nutrient) {
+    int left_size = midpoint - left_index + 1;
+    int right_size = right_index - midpoint;
+    // temporary vectors will end up needing O(N) space complexity
+    vector<Food> left_list(left_size), right_list(right_size);
+    int i, j;
+    for(i=0; i < left_size; i++) {
+        left_list[i] = sub_list[left_index + i];
+    }
+    for(j=0; j < right_size; j++) {
+        right_list[j] = sub_list[midpoint + 1 + j];
+    }
+    i = 0;
+    j = 0;
+    int k = left_index;
+    // merge vectors back
+    // nutrients: 1 = cals, 2 = fat, 3 = carbs, 4 = protein
+    if(nutrient == 1) {
+        while(i < left_size && j < right_size) {
+            if(left_list[i].cals <= right_list[j].cals) {
+                sub_list[k] = left_list[i];
+                i++;
+            } else {
+                sub_list[k] = right_list[j];
+                j++;
+            }
+            k++;
+        }
+    } else if(nutrient == 2) {
+        while(i < left_size && j < right_size) {
+            if(left_list[i].fat <= right_list[j].fat) {
+                sub_list[k] = left_list[i];
+                i++;
+            } else {
+                sub_list[k] = right_list[j];
+                j++;
+            }
+            k++;
+        }
+    } else if(nutrient == 3) {
+        while(i < left_size && j < right_size) {
+            if(left_list[i].carbs <= right_list[j].carbs) {
+                sub_list[k] = left_list[i];
+                i++;
+            } else {
+                sub_list[k] = right_list[j];
+                j++;
+            }
+            k++;
+        }
+    } else if(nutrient == 4) {
+        while(i < left_size && j < right_size) {
+            if(left_list[i].protein <= right_list[j].protein) {
+                sub_list[k] = left_list[i];
+                i++;
+            } else {
+                sub_list[k] = right_list[j];
+                j++;
+            }
+            k++;
+        }
+    }
+    // copy rest of elements
+    while(i < left_size) {
+        sub_list[k] = left_list[i];
+        k++;
+        i++;
+    }
+    while(j < right_size) {
+        sub_list[k] = right_list[j];
+        k++;
+        j++;
+    }
+}
+
+void FoodList::mergeSort(vector<FoodList::Food>& list, int left_index, int right_index, int nutrient) {
+    if(left_index < right_index) {
+        int midpoint = left_index + ((right_index - left_index) / 2);
+        // sort both halves
+        mergeSort(list, left_index, midpoint, nutrient);
+        mergeSort(list, midpoint + 1, right_index, nutrient);
+        // merge halves
+        merge(list, left_index, midpoint, right_index, nutrient);
     }
 }
 
@@ -274,9 +360,15 @@ Select a sorting algorithm:
 Selection (1-2): )";
     cin >> sortAlg;
 
-
     if(sortAlg == 1){
         cout << "Sorting by protein using heap sort..." << endl;
+        // use chrono to find time before and after this function call then print out time
         heapSort(foodList, nutrient);
+    }
+
+    // call merge sort with list from 0 to list size - 1
+    if(sortAlg == 2) {
+        cout << "Sorting by protein using merge sort..." << endl;
+        mergeSort(foodList, 0, static_cast<int>(foodList.size()) - 1, nutrient);
     }
 }

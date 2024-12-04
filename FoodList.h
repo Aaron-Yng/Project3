@@ -28,13 +28,15 @@ private:
     void heapify_fat(vector<Food>& list, int size, int i);
     void heapify_carbs(vector<Food>& list, int size, int i);
     void heapify_protein(vector<Food>& list, int size, int i);
+    void merge(vector<Food>& sub_list, int left_index, int mid, int right_index, int nutrient);
 
-    vector<Food> foodList;
     unordered_map<int, Food> foodMap; //need to use map in order to retrieve values from food_nutrient.csv
 
 public:
+    vector<Food> foodList;
     FoodList();
     void heapSort(vector<Food>& list, int nutrient);
+    void mergeSort(vector<Food>& list, int left_index, int right_index, int nutrient);
     void sortFoods();
 
 };
