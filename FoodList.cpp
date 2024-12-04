@@ -388,14 +388,26 @@ Selection (1-2): )";
 
     if(sortAlg == 1){
         cout << "Sorting by " << nutriString << " using heap sort..." << endl;
+
         // use chrono to find time before and after this function call then print out time
+        auto start = chrono::system_clock::now();
+
         heapSort(foodList, nutrient);
+
+        auto end = chrono::system_clock::now();
+        cout << "Heap Sort Time Elapsed: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " milliseconds" << endl;
     }
 
     // call merge sort with list from 0 to list size - 1
     if(sortAlg == 2) {
-        cout << "Sorting by " << nutriString << " using heap sort..." << endl;
+        cout << "Sorting by " << nutriString << " using merge sort..." << endl;
+
+        auto start = chrono::system_clock::now();
+
         mergeSort(foodList, 0, static_cast<int>(foodList.size()) - 1, nutrient);
+
+        auto end = chrono::system_clock::now();
+        cout << "Merge Sort Time Elapsed: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " milliseconds" << endl;
     }
 
     int display;
