@@ -33,6 +33,7 @@ Choose a command (1-3): )";
                 foods.sortFoods();
                 break;
             case(2):
+                foods.searchFoods();
                 break;
         }
 

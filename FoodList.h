@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <algorithm>
 using namespace std;
 
 class FoodList {
@@ -39,6 +40,7 @@ public:
     void heapSort(vector<Food>& list, int nutrient);
     void mergeSort(vector<Food>& list, int left_index, int right_index, int nutrient);
     void sortFoods();
+    void searchFoods();
 
 };
 

@@ -34,7 +34,7 @@ FoodList::FoodList()
     }
 
     getline(input, line);
-    cout << line << endl;
+    //cout << line << endl;
 
 
     //populates the foodList vector
@@ -59,7 +59,7 @@ FoodList::FoodList()
 
         getline(input, line);
     }
-    cout << "Map Populated." << endl;
+    //cout << "Map Populated." << endl;
 
     input.close();
 
@@ -67,7 +67,7 @@ FoodList::FoodList()
     input.open(path);
 
     getline(input, line);
-    cout << line << endl;
+    //cout << line << endl;
 
     getline(input, line);
 
@@ -114,12 +114,12 @@ FoodList::FoodList()
         getline(input, line);
     }
 
-    cout << "Nutrients Loaded." << endl;
+    //cout << "Nutrients Loaded." << endl;
 
     for(auto [key,food]: foodMap){
         foodList.push_back(food);
     }
-    cout << "List Populated." << endl;
+    //cout << "List Populated." << endl;
 
 /*
 Notes:
@@ -443,4 +443,27 @@ Selection (1-2): )";
             cout << "Protein: " << foodList[size - i].protein << endl << endl;
         }
     }
+}
+
+void FoodList::searchFoods()
+{
+    int id;
+    cout << "Enter a valid fdc_id: ";
+    cin >> id;
+
+    cout << endl;
+
+    if(!foodMap.count(id)){
+        cout << "Error: Invalid ID" << endl;
+        return;
+    }
+
+    Food temp = foodMap.find(id)->second;
+
+    cout << "Name: " << temp.name << endl;
+    cout << "FDC_ID: " << temp.fdc_id << endl;
+    cout << "Calories: " << temp.cals << endl;
+    cout << "Fat: " << temp.fat << endl;
+    cout << "Carbs: " << temp.carbs << endl;
+    cout << "Protein: " << temp.protein << endl << endl;
 }
