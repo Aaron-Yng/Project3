@@ -16,10 +16,10 @@ private:
     struct Food {
         unsigned int fdc_id; //unique id of food item
         string name;
-        unsigned int cals;
-        unsigned int fat;
-        unsigned int carbs;
-        unsigned int protein;
+        double cals;
+        double fat;
+        double carbs;
+        double protein;
 
         Food(int _id, string& name);
         Food();

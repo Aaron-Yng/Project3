@@ -72,7 +72,7 @@ FoodList::FoodList()
     getline(input, line);
 
     int tempNutri;
-    int nutriVal;
+    double nutriVal;
     while(!input.eof()){
         line = line.substr(line.find('\"', 1) + 3);
         end = line.find('\"');
@@ -82,15 +82,21 @@ FoodList::FoodList()
         line = line.substr(line.find('\"', 1) + 3);
         end = line.find('\"');
         tempNutri = stoi(line.substr(0,end));
+        //cout << "nutrient: " << tempNutri << endl;
 
         line = line.substr(line.find('\"', 1) + 3);
         end = line.find('\"');
-        nutriVal = stoi(line.substr(0,end));
+        nutriVal = stod(line.substr(0,end));
+        //cout << "amount: " << nutriVal << endl << endl;
 
         switch(tempNutri){
+            case(1062):
+            case(2047):
+            case(2048):
             case(1008):
                 foodMap[tempID].cals = nutriVal;
                 break;
+            case(1053):
             case(1003):
                 foodMap[tempID].protein = nutriVal;
                 break;
@@ -98,6 +104,9 @@ FoodList::FoodList()
                 foodMap[tempID].fat = nutriVal;
                 break;
             case(1005):
+            case(1050):
+            case(1072):
+            case(2039):
                 foodMap[tempID].carbs = nutriVal;
                 break;
         }
@@ -349,6 +358,22 @@ void FoodList::sortFoods()
 Selection (1-4): )";
     cin >> nutrient;
 
+    string nutriString;
+    switch(nutrient){
+        case(1):
+            nutriString = "calories";
+            break;
+        case(2):
+            nutriString = "fat";
+            break;
+        case(3):
+            nutriString = "carbs";
+            break;
+        case(4):
+            nutriString = "protein";
+            break;
+    }
+
     cout << endl;
 
     int sortAlg = 0;
@@ -360,15 +385,50 @@ Select a sorting algorithm:
 Selection (1-2): )";
     cin >> sortAlg;
 
+
     if(sortAlg == 1){
-        cout << "Sorting by protein using heap sort..." << endl;
+        cout << "Sorting by " << nutriString << " using heap sort..." << endl;
         // use chrono to find time before and after this function call then print out time
         heapSort(foodList, nutrient);
     }
 
     // call merge sort with list from 0 to list size - 1
     if(sortAlg == 2) {
-        cout << "Sorting by protein using merge sort..." << endl;
+        cout << "Sorting by " << nutriString << " using heap sort..." << endl;
         mergeSort(foodList, 0, static_cast<int>(foodList.size()) - 1, nutrient);
+    }
+
+    int display;
+    cout << R"(
+Display Options:
+1. Display top ten foods.
+2. Display bottom ten foods.
+
+Selection (1-2): )";
+    cin >> display;
+
+    cout << endl;
+
+    int size = foodList.size();
+    if(display == 2){
+        cout << "Top ten foods";
+        for(int i = 1; i < 11; i++){
+            cout << i << ". " << foodList[i].name << endl;
+            cout << "FDC_ID: " << foodList[i].fdc_id << endl;
+            cout << "Calories: " << foodList[i].cals << endl;
+            cout << "Fat: " << foodList[i].fat << endl;
+            cout << "Carbs: " << foodList[i].carbs << endl;
+            cout << "Protein: " << foodList[i].protein << endl << endl;
+        }
+    } else if(display == 1){
+        cout << "Bottom ten foods:" << endl;
+        for(int i = 1; i < 11; i++){
+            cout << i << ". " << foodList[size - i].name << endl;
+            cout << "FDC_ID: " << foodList[size - i].fdc_id << endl;
+            cout << "Calories: " << foodList[size - i].cals << endl;
+            cout << "Fat: " << foodList[size - i].fat << endl;
+            cout << "Carbs: " << foodList[size - i].carbs << endl;
+            cout << "Protein: " << foodList[size - i].protein << endl << endl;
+        }
     }
 }
