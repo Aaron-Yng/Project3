@@ -423,7 +423,7 @@ Selection (1-2): )";
 
     int size = foodList.size();
     if(display == 2){
-        cout << "Top ten foods";
+        cout << "Bottom ten foods" << endl;
         for(int i = 1; i < 11; i++){
             cout << i << ". " << foodList[i].name << endl;
             cout << "FDC_ID: " << foodList[i].fdc_id << endl;
@@ -433,7 +433,7 @@ Selection (1-2): )";
             cout << "Protein: " << foodList[i].protein << endl << endl;
         }
     } else if(display == 1){
-        cout << "Bottom ten foods:" << endl;
+        cout << "Top ten foods:" << endl;
         for(int i = 1; i < 11; i++){
             cout << i << ". " << foodList[size - i].name << endl;
             cout << "FDC_ID: " << foodList[size - i].fdc_id << endl;
